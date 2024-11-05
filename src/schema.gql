@@ -1,0 +1,49 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type User {
+  id: Int!
+  fullName: String!
+  username: String!
+  email: String!
+  age: Int
+}
+
+type Query {
+  users: [User!]!
+  user(payload: QueryUserArg!): User!
+}
+
+input QueryUserArg {
+  id: Int!
+}
+
+type Mutation {
+  createUser(createUserInput: CreateUserInput!): User!
+  updateUser(updateUserInput: UpdateUserInput!): Int!
+  updateUserPassword(updatePasswordInput: UpdatePasswordInput!): String!
+  removeUser(id: Int!): String!
+}
+
+input CreateUserInput {
+  username: String!
+  password: String!
+  email: String!
+  age: Int
+  fullName: String!
+}
+
+input UpdateUserInput {
+  username: String
+  password: String
+  email: String
+  age: Int
+  fullName: String
+  id: Int!
+}
+
+input UpdatePasswordInput {
+  id: Int!
+  password: String!
+}
