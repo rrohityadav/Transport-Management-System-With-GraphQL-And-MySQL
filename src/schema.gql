@@ -10,9 +10,15 @@ type User {
   age: Int
 }
 
+type AuthResponse {
+  user: User!
+  access_token: String!
+}
+
 type Query {
   users: [User!]!
   user(payload: QueryUserArg!): User!
+  protectedData: String!
 }
 
 input QueryUserArg {
@@ -24,6 +30,7 @@ type Mutation {
   updateUser(updateUserInput: UpdateUserInput!): Int!
   updateUserPassword(updatePasswordInput: UpdatePasswordInput!): String!
   removeUser(id: Int!): String!
+  login(input: LoginInput!): AuthResponse!
 }
 
 input CreateUserInput {
@@ -45,5 +52,10 @@ input UpdateUserInput {
 
 input UpdatePasswordInput {
   id: Int!
+  password: String!
+}
+
+input LoginInput {
+  username: String!
   password: String!
 }

@@ -35,6 +35,9 @@ export class UsersService {
     return this.usersRepository.findOne({ where: { id: data.id } });
   }
 
+  async findByUsername(username: string): Promise<User | undefined> {
+    return this.usersRepository.findOne({ where: { username } });
+  }
   async update(data: UpdateUserInput): Promise<number> {
     const { id, ...updateData } = data;
     const result = await this.usersRepository.update({ id }, updateData);

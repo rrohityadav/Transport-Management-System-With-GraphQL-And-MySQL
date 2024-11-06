@@ -34,6 +34,11 @@ export interface UpdatePasswordInput {
     password: string;
 }
 
+export interface LoginInput {
+    username: string;
+    password: string;
+}
+
 export interface User {
     id: number;
     fullName: string;
@@ -42,9 +47,15 @@ export interface User {
     age?: Nullable<number>;
 }
 
+export interface AuthResponse {
+    user: User;
+    access_token: string;
+}
+
 export interface IQuery {
     users(): User[] | Promise<User[]>;
     user(payload: QueryUserArg): User | Promise<User>;
+    protectedData(): string | Promise<string>;
 }
 
 export interface IMutation {
@@ -52,6 +63,7 @@ export interface IMutation {
     updateUser(updateUserInput: UpdateUserInput): number | Promise<number>;
     updateUserPassword(updatePasswordInput: UpdatePasswordInput): string | Promise<string>;
     removeUser(id: number): string | Promise<string>;
+    login(input: LoginInput): AuthResponse | Promise<AuthResponse>;
 }
 
 type Nullable<T> = T | null;
