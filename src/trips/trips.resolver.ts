@@ -1,7 +1,7 @@
 import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
 import { TripsService } from './trips.service';
 import { Trip } from './entities/trip.entity';
-import { CreateTripInput } from './dto/create-trip.input';
+import { CreateTripInput, QueryTripArgs } from './dto/create-trip.input';
 import { UpdateTripInput } from './dto/update-trip.input';
 
 @Resolver(() => Trip)
@@ -19,16 +19,16 @@ export class TripsResolver {
   }
 
   @Query(() => Trip, { name: 'trip' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
-    return this.tripsService.findOne(id);
+  findOne(@Args('payload') payload: QueryTripArgs) {
+    return this.tripsService.findOne(payload);
   }
 
-  @Mutation(() => Trip)
+  @Mutation(() => Int)
   updateTrip(@Args('updateTripInput') updateTripInput: UpdateTripInput) {
-    return this.tripsService.update(updateTripInput.id, updateTripInput);
+    return this.tripsService.update(updateTripInput);
   }
 
-  @Mutation(() => Trip)
+  @Mutation(() => Int)
   removeTrip(@Args('id', { type: () => Int }) id: number) {
     return this.tripsService.remove(id);
   }
